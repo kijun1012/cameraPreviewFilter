@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Retrica</string>
+    <string name="capture">Capture</string>
+    <string name="permission_not_granted">Permission not granted.</string>
 </resources>
