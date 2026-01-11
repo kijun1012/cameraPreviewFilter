@@ -1,4 +1,4 @@
-package com.kijun.retrica
+package com.kijun.retrica.activity
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -14,10 +14,10 @@ import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import com.kijun.retrica.R
 import com.kijun.retrica.databinding.ActivityMainBinding
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun startCamera() {
         // 수명 주기 동기화 위한 준비.
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+        val cameraProviderFuture = ProcessCameraProvider.Companion.getInstance(this)
 
         cameraProviderFuture.addListener({
             val cameraProvider = cameraProviderFuture.get()
@@ -102,5 +102,3 @@ class MainActivity : AppCompatActivity() {
         }.toTypedArray()
     }
 }
-
-
