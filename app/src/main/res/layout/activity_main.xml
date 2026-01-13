@@ -12,12 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <androidx.camera.view.PreviewView
-        android:id="@+id/view_preview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-
     <Button
         android:id="@+id/btn_capture"
         android:layout_width="wrap_content"
