@@ -2,6 +2,7 @@ package com.kijun.retrica.camera.common
 
 import android.view.View
 import androidx.camera.core.SurfaceRequest
+import com.kijun.retrica.camera.opengl.filter.FilterType
 import java.util.concurrent.Executor
 
 
@@ -9,6 +10,7 @@ interface RenderView {
     val view: View
     fun onResume()
     fun onPause()
+    fun setFilters(types: List<FilterType>) {}
 }
 
 // preview용 consumer. cameraX preivew가 주는 surface 연결.

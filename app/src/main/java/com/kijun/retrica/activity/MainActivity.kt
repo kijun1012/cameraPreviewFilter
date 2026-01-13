@@ -11,6 +11,7 @@ import com.kijun.retrica.R
 import com.kijun.retrica.camera.common.CameraController
 import com.kijun.retrica.camera.common.RenderType
 import com.kijun.retrica.camera.common.RendererFactory
+import com.kijun.retrica.camera.opengl.filter.FilterType
 import com.kijun.retrica.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -38,6 +39,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.layoutMain.addView(renderer.view)
+
+        renderer.setFilters(
+            listOf(FilterType.GRAYSCALE, FilterType.VIGNETTE)
+        )
 
         checkPermission()
     }

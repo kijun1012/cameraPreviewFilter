@@ -5,6 +5,7 @@ import android.view.View
 import androidx.camera.core.SurfaceRequest
 import com.kijun.retrica.camera.common.PreviewConsumer
 import com.kijun.retrica.camera.common.RenderView
+import com.kijun.retrica.camera.opengl.filter.FilterType
 import java.util.concurrent.Executor
 
 class OpenGLPreviewRenderer(context: Context) : RenderView, PreviewConsumer {
@@ -16,6 +17,13 @@ class OpenGLPreviewRenderer(context: Context) : RenderView, PreviewConsumer {
         executor: Executor
     ) {
         glView.renderer.onSurfaceRequest(request, executor)
+    }
+
+    override fun setFilters(types: List<FilterType>) {
+        glView.queueEvent {
+            glView.renderer.setFilters(types)
+        }
+        glView.requestRender()
     }
 
     override fun onResume() = glView.onResume()
