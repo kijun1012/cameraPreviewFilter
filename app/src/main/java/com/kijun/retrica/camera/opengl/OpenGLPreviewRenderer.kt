@@ -6,6 +6,7 @@ import androidx.camera.core.SurfaceRequest
 import com.kijun.retrica.camera.common.PreviewConsumer
 import com.kijun.retrica.camera.common.RenderView
 import com.kijun.retrica.camera.opengl.filter.FilterType
+import com.kijun.retrica.util.FpsMonitor
 import java.util.concurrent.Executor
 
 class OpenGLPreviewRenderer(context: Context) : RenderView, PreviewConsumer {
@@ -24,6 +25,10 @@ class OpenGLPreviewRenderer(context: Context) : RenderView, PreviewConsumer {
             glView.renderer.setFilters(types)
         }
         glView.requestRender()
+    }
+
+    override fun setFpsMonitor(fpsMonitor: FpsMonitor) {
+        glView.renderer.fpsMonitor = fpsMonitor
     }
 
     override fun onResume() = glView.onResume()

@@ -7,6 +7,7 @@ import android.view.Surface
 import androidx.camera.core.SurfaceRequest
 import com.kijun.retrica.camera.opengl.filter.FilterChain
 import com.kijun.retrica.camera.opengl.filter.FilterType
+import com.kijun.retrica.util.FpsMonitor
 import com.kijun.retrica.util.GLUtils
 import java.util.concurrent.Executor
 import javax.microedition.khronos.egl.EGLConfig
@@ -25,6 +26,8 @@ class OpenGLRenderer(private val glView: GLSurfaceView) : GLSurfaceView.Renderer
 
     // ✅ OES->2D + filters + screen
     private val chain = FilterChain()
+
+    var fpsMonitor: FpsMonitor? = null
 
     // CameraX에게 Surface 제공하기 위한 함수.
     fun onSurfaceRequest(request: SurfaceRequest, executor: Executor) {
@@ -66,6 +69,7 @@ class OpenGLRenderer(private val glView: GLSurfaceView) : GLSurfaceView.Renderer
         st.getTransformMatrix(texM) // 회전, 크롭, 반전등의 transform 데이터를 가져와서 저장.
 
         chain.draw(oesTexId, texM) // 각 필터에서 그린다.
+        fpsMonitor?.tickFps()
     }
 
     // surface 제공 함수.
