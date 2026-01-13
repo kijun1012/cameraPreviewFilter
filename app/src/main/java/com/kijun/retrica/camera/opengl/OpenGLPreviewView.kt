@@ -1,15 +1,15 @@
-package com.kijun.retrica.camera
+package com.kijun.retrica.camera.opengl
 
 import android.content.Context
 import android.opengl.GLSurfaceView
 
-class CameraGLSurfaceView(context: Context) : GLSurfaceView(context) {
+class OpenGLPreviewView(context: Context) : GLSurfaceView(context) {
 
-    val renderer: CameraRenderer
+    val renderer: OpenGLRenderer
 
     init {
         setEGLContextClientVersion(2)
-        renderer = CameraRenderer(this)
+        renderer = OpenGLRenderer(this)
         setRenderer(renderer)
         renderMode = RENDERMODE_WHEN_DIRTY
         preserveEGLContextOnPause = true

@@ -1,4 +1,4 @@
-package com.kijun.retrica.camera
+package com.kijun.retrica.camera.opengl
 
 import android.graphics.SurfaceTexture
 import android.opengl.GLES11Ext
@@ -14,7 +14,7 @@ import java.util.concurrent.Executor
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
-class CameraRenderer(private val glView: GLSurfaceView) : GLSurfaceView.Renderer {
+class OpenGLRenderer(private val glView: GLSurfaceView) : GLSurfaceView.Renderer {
 
     private var pendingRequest: SurfaceRequest? = null
     private var pendingExecutor: Executor? = null

@@ -11,13 +11,14 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.kijun.retrica.R
-import com.kijun.retrica.camera.CameraGLSurfaceView
+import com.kijun.retrica.camera.common.RenderBackend
+import com.kijun.retrica.camera.common.RendererFactory
 import com.kijun.retrica.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var glView: CameraGLSurfaceView
+    private val renderer by lazy { RendererFactory.create(this, RenderBackend.OPENGL) }
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -36,8 +37,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        glView = CameraGLSurfaceView(this)
-        binding.layoutMain.addView(glView)
+        binding.layoutMain.addView(renderer.view)
 
         checkPermission()
     }
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     private fun startCamera() {
         val mainExecutor = ContextCompat.getMainExecutor(this)
 
-        val cameraProviderFuture = ProcessCameraProvider.Companion.getInstance(this)
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener({
             val cameraProvider = cameraProviderFuture.get()
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
             // renderer 로 preview의 surface 제공.
             preview.setSurfaceProvider { req ->
-                glView.renderer.onSurfaceRequest(req, mainExecutor)
+                renderer.onSurfaceRequest(req, mainExecutor)
             }
 
             // 카메라 선택
@@ -85,11 +85,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        glView.onResume()
+        renderer.onResume()
     }
 
     override fun onPause() {
-        glView.onPause()
+        renderer.onPause()
         super.onPause()
     }
 
