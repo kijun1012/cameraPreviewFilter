@@ -21,6 +21,8 @@ class PingPongFbo {
     }
 
     fun write(): Fbo = if (!flip) a!! else b!!
+    fun read(): Fbo = if (!flip) b!! else a!!
+
 
     fun swap() {
         flip = !flip

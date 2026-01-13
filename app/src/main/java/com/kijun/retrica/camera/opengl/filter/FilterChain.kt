@@ -63,10 +63,9 @@ class FilterChain {
         GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, out0.fboId)
         GLES20.glViewport(0, 0, out0.w, out0.h)
         drawOesTo2D(oesTexId, texM)
-        GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0)
-        pingPong.swap()
 
-        var input2D = out0.texId
+        pingPong.swap()
+        var input2D = pingPong.read().texId
 
         // 필터 적용
         for (f in filters) {
@@ -74,10 +73,9 @@ class FilterChain {
             GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, out.fboId)
             GLES20.glViewport(0, 0, out.w, out.h)
             f.draw(input2D)
-            GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0)
 
-            input2D = out.texId
             pingPong.swap()
+            input2D = pingPong.read().texId
         }
 
         // 화면 표시
