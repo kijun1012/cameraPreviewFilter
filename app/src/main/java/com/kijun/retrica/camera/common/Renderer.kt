@@ -5,14 +5,16 @@ import androidx.camera.core.SurfaceRequest
 import java.util.concurrent.Executor
 
 
-interface PreviewRenderer : PreviewRenderView, PreviewSurfaceProvider
-
-interface PreviewRenderView {
+interface RenderView {
     val view: View
     fun onResume()
     fun onPause()
 }
 
-interface PreviewSurfaceProvider {
+// preview용 consumer. cameraX preivew가 주는 surface 연결.
+interface PreviewConsumer {
     fun onSurfaceRequest(request: SurfaceRequest, executor: Executor)
 }
+
+// analysis용 consumer.
+interface AnalysisConsumer {}
